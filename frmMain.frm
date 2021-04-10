@@ -66,7 +66,7 @@ Begin VB.Form frmMain
       Height          =   324
       Left            =   480
       TabIndex        =   3
-      Top             =   1008
+      Top             =   1056
       Width           =   468
    End
    Begin VB.Label Label1 
