@@ -123,6 +123,16 @@ Private Sub Timer1_Timer()
     End If
 End Sub
 
+Private Sub txtLeft_GotFocus()
+    txtLeft.SelStart = 0
+    txtLeft.SelLength = Len(txtLeft.Text)
+End Sub
+
+Private Sub txtTop_GotFocus()
+    txtTop.SelStart = 0
+    txtTop.SelLength = Len(txtTop.Text)
+End Sub
+
 Private Sub txtLeft_KeyPress(KeyAscii As Integer)
     If InStr("-0123456789.", Chr$(KeyAscii)) = 0 Then KeyAscii = 0
 End Sub
