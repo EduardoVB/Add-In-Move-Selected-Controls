@@ -52,7 +52,7 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       Height          =   468
-      Left            =   216
+      Left            =   200
       TabIndex        =   7
       ToolTipText     =   "Undo all moves made to the current selection"
       Top             =   1656
@@ -86,7 +86,7 @@ Begin VB.Form frmMain
       Caption         =   "Move"
       Enabled         =   0   'False
       Height          =   468
-      Left            =   1536
+      Left            =   1566
       TabIndex        =   5
       Top             =   1656
       Width           =   900
