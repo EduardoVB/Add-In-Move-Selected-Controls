@@ -5,6 +5,7 @@ Reference=*\G{AC0714F2-3D04-11D1-AE7D-00A0C90F26F4}#1.0#0#C:\Program Files (x86)
 Reference=*\G{EF404E00-EDA6-101A-8DAF-00DD010F7EBB}#5.3#0#C:\Program Files (x86)\Microsoft Visual Studio\VB98\VB6EXT.OLB#Microsoft Visual Basic 6.0 Extensibility
 Designer=Connect.Dsr
 Form=frmMain.frm
+Object={FE0065C0-1B7B-11CF-9D53-00AA003C9CB6}#1.1#0; COMCT232.OCX
 Startup="(None)"
 HelpFile=""
 Title="Move Controls"

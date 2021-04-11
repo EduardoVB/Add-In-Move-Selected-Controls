@@ -29,6 +29,14 @@ Private mcbMenuCommandBar         As Office.CommandBarControl
 Private mfrmMain                 As New frmMain
 Public WithEvents MenuHandler As CommandBarEvents          'controlador de evento de barra de comandos
 Attribute MenuHandler.VB_VarHelpID = -1
+Private WithEvents mSelectedControls As VBIDE.SelectedVBControlsEvents
+Attribute mSelectedControls.VB_VarHelpID = -1
+Private WithEvents mControls As VBIDE.VBControlsEvents
+Attribute mControls.VB_VarHelpID = -1
+Private WithEvents mComponents As VBIDE.VBComponentsEvents
+Attribute mComponents.VB_VarHelpID = -1
+Private WithEvents mProjects As VBIDE.VBProjectsEvents
+Attribute mProjects.VB_VarHelpID = -1
 
 Sub HidefrmMain()
     
@@ -51,6 +59,7 @@ Sub ShowfrmMain()
     Set mfrmMain.Connect = Me
     FormDisplayed = True
     mfrmMain.Show
+    mfrmMain.UpdateSelection
     mfrmMain.ZOrder
     mfrmMain.SetFocus
    
@@ -92,6 +101,10 @@ Private Sub IDTExtensibility_OnStartupComplete(custom() As Variant)
     End If
 End Sub
 
+Private Sub AddinInstance_OnStartupComplete(custom() As Variant)
+    SetMainhandlers
+End Sub
+
 Private Sub MenuHandler_Click(ByVal CommandBarControl As Object, handled As Boolean, CancelDefault As Boolean)
     ShowfrmMain
 End Sub
@@ -118,3 +131,59 @@ AddToAddInCommandBarErr:
 
 End Function
 
+Public Sub SetMainhandlers()
+    Dim iEvents2 As Events2
+    
+    Set mProjects = Nothing
+    Set mProjects = VBInstance.Events.VBProjectsEvents
+    
+    SetActiveObjectsHandlers
+End Sub
+
+Private Sub mProjects_ItemActivated(ByVal VBProject As VBIDE.VBProject)
+    SetActiveObjectsHandlers
+End Sub
+
+Private Sub mProjects_ItemAdded(ByVal VBProject As VBIDE.VBProject)
+    SetActiveObjectsHandlers
+End Sub
+
+Private Sub mProjects_ItemRemoved(ByVal VBProject As VBIDE.VBProject)
+    SetActiveObjectsHandlers
+End Sub
+
+Private Sub mProjects_ItemRenamed(ByVal VBProject As VBIDE.VBProject, ByVal OldName As String)
+    SetActiveObjectsHandlers
+End Sub
+
+Private Sub SetActiveObjectsHandlers()
+    If Not VBInstance.ActiveVBProject Is Nothing Then
+        Set mComponents = Nothing
+        Set mComponents = VBInstance.Events.VBComponentsEvents(VBInstance.ActiveVBProject)
+    End If
+    
+    If Not VBInstance.SelectedVBComponent Is Nothing Then
+        If VBInstance.SelectedVBComponent.HasOpenDesigner Then
+            Set mSelectedControls = Nothing
+            Set mSelectedControls = VBInstance.Events.SelectedVBControlsEvents(VBInstance.ActiveVBProject, VBInstance.SelectedVBComponent.Designer)
+            Set mControls = Nothing
+            Set mControls = VBInstance.Events.VBControlsEvents(VBInstance.ActiveVBProject, VBInstance.SelectedVBComponent.Designer)
+        Else
+            'No designer selected
+        End If
+    Else
+        'No designer selected
+    End If
+End Sub
+
+Private Sub mSelectedControls_ItemAdded(ByVal VBControl As VBIDE.VBControl)
+    If FormDisplayed Then
+        mfrmMain.UpdateSelection
+    End If
+End Sub
+
+Private Sub mSelectedControls_ItemRemoved(ByVal VBControl As VBIDE.VBControl)
+    If FormDisplayed Then
+        mfrmMain.UpdateSelection
+    End If
+End Sub
