@@ -44,9 +44,9 @@ Begin VB.Form frmMain
       Enabled         =   0   'False
       BeginProperty Font 
          Name            =   "Wingdings 3"
-         Size            =   13.8
+         Size            =   12
          Charset         =   2
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -63,9 +63,9 @@ Begin VB.Form frmMain
       Enabled         =   0   'False
       BeginProperty Font 
          Name            =   "Wingdings 3"
-         Size            =   13.8
+         Size            =   12
          Charset         =   2
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
