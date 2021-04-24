@@ -379,6 +379,7 @@ End Sub
 Private Sub DoMove(ByVal nLeft As Single, ByVal nTop As Single)
     Dim iCtl As VBControl
     
+    On Error GoTo ErrH
     If Not VBInstance.ActiveVBProject Is Nothing Then
          For Each iCtl In VBInstance.SelectedVBComponent.Designer.VBControls
             If iCtl.InSelection Then
@@ -402,6 +403,10 @@ Private Sub DoMove(ByVal nLeft As Single, ByVal nTop As Single)
     End If
     
     lblMoved.Caption = GetMovedLeft & ", " & GetMovedTop
+    Exit Sub
+    
+ErrH:
+    MsgBox "Error " & Err.Number & ": " & Err.Description, vbExclamation
 End Sub
 
 Private Function GetMovedLeft() As Single
